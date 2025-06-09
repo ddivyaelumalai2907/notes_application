@@ -35,13 +35,13 @@ Frontend UI
   
 Tech Stack:
 
-  Backend - Python + Flask
+  1.Backend - Python + Flask
   
-  Frontend - HTML, CSS, JavaScript
+  2.Frontend - HTML, CSS, JavaScript
   
-  Database - MySQL
+  3.Database - MySQL
   
-  ORM - SQLAlchemy
+  4.ORM - SQLAlchemy
   
 DataBase Queries:
 

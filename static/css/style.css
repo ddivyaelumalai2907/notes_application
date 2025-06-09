@@ -1,0 +1,102 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: white;
+  overflow-x: hidden;
+}
+
+.hero-image {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay container with centered content */
+.hero-overlay {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  padding: 40px 60px;
+  border-radius: 12px;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.hero-overlay h1 {
+  font-size: 3em;
+  margin: 0;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 12px 24px;
+  background: #2979ff;
+  color: white;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #5393ff;
+}
+
+.section-title {
+  font-size: 2em;
+  margin: 0;
+  position: absolute;
+  top: 260px
+}
+
+.carousel {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  top:150px;
+}
+
+.carousel-track {
+  display: flex;
+  animation: scroll 15s linear infinite;
+}
+
+.card {
+  min-width: 250px;
+  margin: 0 15px;
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px #111;
+}
+
+/* Horizontal scroll animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-150%);
+  }
+}

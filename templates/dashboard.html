@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Notes</title>
+  <style>
+    body {
+      background: #1e1e1e;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .carousel {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: flex-start;
+    }
+    .card {
+      background: #2d2d2d;
+      border-radius: 10px;
+      padding: 20px;
+      min-width: 280px;
+      flex: 0 0 auto;
+      box-shadow: 0 0 10px #000;
+    }
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+    .card textarea {
+      width: 100%;
+      height: 100px;
+      background: #3c3c3c;
+      color: #fff;
+      border: none;
+      resize: none;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .btn {
+      margin-top: 10px;
+      background: #4caf50;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #388e3c;
+    }
+    .section-title {
+        font-size: 2em;
+        margin: 0;
+        position: static;
+        margin-top: 15px;
+    }
+
+    .carousel-top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 0px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hello, {{ user_name }} &#128075;</h1>
+  <button class="btn" id="add-note-btn">Add Note</button>
+  <div id="notes-container"></div>
+  <div class="carousel">
+    {%if res.status == 'success'%}
+        {% for note in res['data'] %}
+        <div class="card" data-note-id="{{ note.note_id }}">
+            <h3 class="note-title">{{ note.note_title }}</h3>
+            <textarea class="note-content" disabled>{{ note.note_content }}</textarea>
+            <button class="btn edit-btn">Edit</button>
+            <button class="btn update-note-btn">Update</button>
+             <button class="btn delete-note-btn">Delete</button>
+        </div>
+        {% endfor %}
+    {% else %}
+        <h2 class="section-title">Sample Notes</h2>
+        <div class="carousel-top">
+            <div class="card"><h3>Note 1</h3><p>Example content for note 1.</p></div>
+            <div class="card"><h3>Note 2</h3><p>Example content for note 2.</p></div>
+            <div class="card"><h3>Note 3</h3><p>Example content for note 3.</p></div>
+            <div class="card"><h3>Note 4</h3><p>Example content for note 4.</p></div>
+            <div class="card"><h3>Note 5</h3><p>Example content for note 5.</p></div>
+        </div>
+    {% endif %}
+  </div>
+  <script src="/static/js/notes.js"></script>
+</body>
+</html>

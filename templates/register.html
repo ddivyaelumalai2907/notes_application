@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background: #222;
+      padding: 2rem;
+      border-radius: 8px;
+      width: 300px;
+      box-shadow: 0 0 10px #000;
+    }
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1rem;
+      background: #00aaff;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0088cc;
+    }
+    #message {
+      margin-top: 1rem;
+      min-height: 1.2rem;
+      color: #f88;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Register</h2>
+    <input type="text" id="name" placeholder=Name required />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" title="Password must have: 1 capital letter, 1 special character, 1 number, minimum 5 characters" required />
+    <button onclick="register()">Register</button>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    function register() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const messageEl = document.getElementById('message');
+      messageEl.textContent = '';
+
+      if (!name || !email || !password) {
+        messageEl.textContent = 'Please fill in all fields.';
+        return;
+      }
+      validEmail = validateEmail(email)
+      if (!(validEmail)){
+        return alert('Please Enter a Valid Email Id');
+      }
+      validPassword = validatePassword(password)
+      if(!(validPassword)){
+        return alert('Please Enter a Valid Password');
+      } 
+      fetch('/add/user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({name,email, password })
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Invalid credentials');
+        }
+        return response.json();
+      })
+      .then(data => {
+        messageEl.style.color = '#8f8';
+        messageEl.textContent = data.message || 'Registeration successful!';
+        window.location.href = "/login"
+      })
+      .catch(err => {
+        messageEl.style.color = '#f88';
+        messageEl.textContent = err.message || 'Registration failed.';
+      });
+    }
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+    function validatePassword(password) {
+      const lengthCheck = password.length >= 5;
+      const upperCheck = /[A-Z]/.test(password);
+      const numberCheck = /[0-9]/.test(password);
+      const specialCheck = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+      return lengthCheck && upperCheck && numberCheck && specialCheck;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Notes Home</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <div class="hero-image">
+    <img src="/static/images/note_pad.jpg" alt="Notes Banner" />
+    <div class="hero-overlay">
+      <h1>Welcome to Notes App</h1>
+      <div class="buttons">
+        <a href="{{ url_for('login') }}" class="btn">Login</a>
+        <a href="{{ url_for('register') }}" class="btn">Register</a>
+      </div>
+
+      <h2 class="section-title">Sample Notes</h2>
+      <div class="carousel">
+        <div class="carousel-track">
+          {% if notes.status == 'success' %}
+          <p>Loaded {{ notes['data']|length }} notes.</p>
+          {% for note in notes['data'] %}
+          <div class="card"><h3>{{ note.title }}</h3><p>{{ note.content|replace('\n', '<br>')|safe }}</p></div>
+          {% endfor %}
+          {% else %}
+          <div class="card"><h3>Note 1</h3><p>Example content for note 1.</p></div>
+          <div class="card"><h3>Note 2</h3><p>Example content for note 2.</p></div>
+          <div class="card"><h3>Note 3</h3><p>Example content for note 3.</p></div>
+          <div class="card"><h3>Note 4</h3><p>Example content for note 4.</p></div>
+          <div class="card"><h3>Note 5</h3><p>Example content for note 5.</p></div>
+        {% endif %}
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
